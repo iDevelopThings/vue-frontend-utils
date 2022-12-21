@@ -1,0 +1,62 @@
+{
+  "name": "vue-frontend-utils",
+  "description": "Vue.js frontend utils - Events/Modal Systems",
+  "author": {
+    "name": "iDevelopThings",
+    "url": "https://github.com/idevelopthings"
+  },
+  "readme": "readme.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idevelopthings/vue-frontend-utils"
+  },
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "VUE_FRONTEND_UTILS_DEV=true vite --config ./vite.dev.config.js",
+    "build": "tsc && vite build",
+    "build:dist": "vite build --config ./vite.lib.config.js && vite build --config ./vite.plugin.config.js",
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./vite": {
+      "import": "./dist/vite.js",
+      "require": "./dist/vite.cjs",
+      "default": "./dist/vite.cjs",
+      "types": "./dist/vite.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.7.7",
+    "vue": "^3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@jitl/ts-simple-type": "^2.0.0-next.3",
+    "@rollup/plugin-typescript": "^10.0.1",
+    "autoprefixer": "^10.4.13",
+    "fs-jetpack": "^5.1.0",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^4.9.3",
+    "vite": "^4.0.0",
+    "vite-plugin-dts": "^1.7.1",
+    "vitest": "^0.26.0"
+  }
+}
