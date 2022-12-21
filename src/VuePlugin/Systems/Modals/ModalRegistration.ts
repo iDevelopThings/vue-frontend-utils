@@ -1,7 +1,7 @@
 import {ModalManager} from "./ModalManager";
 import {defineEvent, type RegisteredEvent} from "../EventBus";
 import {type Component} from "@vue/runtime-core";
-import type {IModalRegistration, ModalProps} from "./ModalTypes";
+import type {IModalRegistration, ModalProps, ModalDefinitions} from "./ModalTypes";
 
 
 export class ModalRegistration<T = any> implements IModalRegistration<T> {
@@ -11,7 +11,7 @@ export class ModalRegistration<T = any> implements IModalRegistration<T> {
 	private _onOpenEvent: RegisteredEvent;
 	private _onCloseEvent: RegisteredEvent;
 
-	private trigger: string;
+	private trigger: any;
 
 	private _componentResolver: () => Component;
 
@@ -81,7 +81,7 @@ export class ModalRegistration<T = any> implements IModalRegistration<T> {
 
 	openAfterClosed(modalName: string): void {
 		const onCloseCallback = (data: any, modal) => {
-			const m = ModalManager.get(modalName);
+			const m = ModalManager.get(modalName as any);
 			if (m) {
 				m.show(data);
 			}
