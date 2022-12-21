@@ -7,7 +7,7 @@ export interface ModalDefinitions {
 export interface ModalVars {
 }
 
-export type ModalRegType<T extends keyof ModalDefinitions> = ModalRegistration<T extends keyof ModalDefinitions ? ModalDefinitions[T] : any>;
+export type ModalRegType<T extends keyof ModalDefinitions> = IModalRegistration<T extends keyof ModalDefinitions ? ModalDefinitions[T] : any>;
 
 export interface ModalProps<T = any> {
 	name: string,
@@ -48,18 +48,18 @@ export interface IModalManager {
 	readonly all: IterableIterator<ModalRegistration>;
 	readonly open: Map<string, any>;
 	register(name: string, component: Component): ModalRegistration;
-	get<T extends keyof ModalDefinitions>(name: T | string): ModalRegType<T> | undefined;
+	get<T extends keyof ModalDefinitions>(name: T): ModalRegType<T> | undefined;
 	isRegistered<T extends keyof ModalDefinitions>(name: T | string): boolean;
 	unregister<T extends keyof ModalDefinitions>(name: T | string): void;
 	unregisterAll(): void;
-	show<T extends keyof ModalDefinitions>(name: T | string, data?: Partial<ModalDefinitions[T]>): void;
-	showOnly<T extends keyof ModalDefinitions>(name: T | string, data?: any): void;
-	opened<T extends keyof ModalDefinitions>(name: T | string, data?: any): void;
-	closed<T extends keyof ModalDefinitions>(name: T | string): void;
-	isOpen<T extends keyof ModalDefinitions>(name: T | string): boolean;
+	show<T extends keyof ModalDefinitions>(name: T, data?: Partial<ModalDefinitions[T]>): void;
+	showOnly<T extends keyof ModalDefinitions>(name: T, data?: any): void;
+	opened<T extends keyof ModalDefinitions>(name: T, data?: any): void;
+	closed<T extends keyof ModalDefinitions>(name: T): void;
+	isOpen<T extends keyof ModalDefinitions>(name: T): boolean;
 	closeAll(): void;
-	closeAllExcept<T extends keyof ModalDefinitions>(name: T | string): void;
-	getData<T extends keyof ModalDefinitions>(name: T | string): Partial<ModalDefinitions[T]> | any;
+	closeAllExcept<T extends keyof ModalDefinitions>(name: T): void;
+	getData<T extends keyof ModalDefinitions>(name: T): Partial<ModalDefinitions[T]> | any;
 }
 
 //export function useModal(name:string) : ModalRegistration;
