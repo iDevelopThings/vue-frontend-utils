@@ -3,7 +3,8 @@ import ts from "typescript";
 import {ResolvedConfig} from "vite";
 
 export type UserPluginConfig = {
-	srcPathFromRoot: "./src",
+	srcPathFromRoot?: string;
+	tsConfigPathFromRoot?: string;
 }
 
 export const FileNames = {
@@ -17,6 +18,8 @@ class PluginConfigInstance {
 
 	public isLocalDev: boolean = false;
 
+	public tsConfigPathFromRoot: string = "tsconfig.json";
+
 	/**
 	 * The project root dir
 	 * @type {string}
@@ -28,7 +31,7 @@ class PluginConfigInstance {
 	 */
 	public projectRootDirectory: typeof jetpack;
 
-	public projectSrc: string;
+	public projectSrc: string = "src";
 	public projectSrcDirectory: typeof jetpack;
 
 	/**
@@ -54,7 +57,10 @@ class PluginConfigInstance {
 	private _parsedCommandLine: ts.ParsedCommandLine;
 
 	public setUserConfig(config: UserPluginConfig) {
-		this.projectSrc = config.srcPathFromRoot;
+		if (config?.srcPathFromRoot)
+			this.projectSrc = config.srcPathFromRoot;
+		if (config?.tsConfigPathFromRoot)
+			this.tsConfigPathFromRoot = config.tsConfigPathFromRoot;
 	}
 
 	public init(config: ResolvedConfig) {
@@ -74,9 +80,9 @@ class PluginConfigInstance {
 			return this._tsConfigPath;
 		}
 
-		const configPath = ts.findConfigFile(this.projectRoot, ts.sys.fileExists, "tsconfig.json");
+		const configPath = ts.findConfigFile(this.projectRoot, ts.sys.fileExists, this.tsConfigPathFromRoot);
 		if (!configPath) {
-			throw new Error("Could not find a valid 'tsconfig.json'.");
+			throw new Error("Could not find a valid 'tsconfig.json'. If you're using a different file name, adjust your VueFrontendUtils config to specify it, for example: VueFrontendUtils({ tsConfigPathFromRoot: './my-tsconfig.json' })");
 		}
 
 		return this._tsConfigPath = configPath;

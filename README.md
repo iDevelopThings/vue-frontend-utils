@@ -38,6 +38,65 @@ Or, if you prefer yarn:
 yarn add vue-frontend-utils
 ```
 
+### Vue
+
+```typescript
+import {createApp} from "vue";
+import App from "./App.vue";
+import {VueFrontendUtils} from "vue-frontend-utils";
+
+const app = createApp(App);
+app.use(VueFrontendUtils);
+app.mount("#app");
+```
+
+### Note:
+It's recommended to create two additional files to hold Modals/Events, then importing these inside your main ts file, for example:
+
+#### Modals.ts
+```typescript
+import {defineModal} from "vue-frontend-utils";
+
+defineModal<{ message:string }>('success');
+```
+#### Events.ts
+```typescript
+import {defineEvent} from "vue-frontend-utils";
+
+defineEvent<{ message: string }>("something:else");
+```
+
+#### Main.ts
+```typescript
+import {createApp} from "vue";
+import App from "./App.vue";
+import {VueFrontendUtils} from "vue-frontend-utils";
+import "./Modals.ts";
+import "./Events.ts";
+
+const app = createApp(App);
+app.use(VueFrontendUtils);
+app.mount("#app");
+```
+
+#### Opting into type generation:
+
+In your vite.config file, you need to add the following plugin:
+
+```typescript
+import {defineConfig} from "vite";
+import vue from "@vitejs/plugin-vue";
+import {VueFrontendUtils} from "vue-frontend-utils/dist/vite";
+
+export default defineConfig({
+	plugins : [
+		VueFrontendUtils({srcPathFromRoot : "src"}),
+		vue()
+	]
+});
+```
+
+
 ## Usage
 
 ### Event Bus:

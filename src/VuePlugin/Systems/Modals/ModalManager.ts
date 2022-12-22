@@ -131,4 +131,4 @@ export class ModalManagerInstance implements IModalManager {
 	}
 }
 
-export const ModalManager = new ModalManagerInstance() as IModalManager;
+export const ModalManager = new ModalManagerInstance();

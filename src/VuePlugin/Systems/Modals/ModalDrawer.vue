@@ -13,19 +13,14 @@ export default defineComponent({
 			if (!modal.isOpen()) continue;
 
 			const modalComp  = modal.component();
-			const extraProps = modal.getProps();
-
-			if (modalComp?.props) {
-				for (let prop of Object.keys(extraProps)) {
-					if (modalComp.props[prop] === undefined) {
-						delete extraProps[prop];
-					}
-				}
-			}
+			const data       = modal.getProps();
+			const extraProps = data.data || {};
 
 			const comp = h(modalComp, {
-				key   : modal.getTrigger(),
-				modal : modal,
+				key    : modal.getTrigger(),
+				modal  : modal,
+				name   : data.name,
+				isOpen : data.isOpen,
 				...extraProps,
 			});
 

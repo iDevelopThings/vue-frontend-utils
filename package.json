@@ -10,16 +10,16 @@
     "type": "git",
     "url": "https://github.com/idevelopthings/vue-frontend-utils"
   },
-  "version": "0.0.5",
+  "version": "0.0.10",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/index.js",
   "scripts": {
     "dev": "VUE_FRONTEND_UTILS_DEV=true vite --config ./vite.dev.config.js",
-    "build": "tsc && vite build",
-    "build:dist": "vite build --config ./vite.lib.config.js && vite build --config ./vite.plugin.config.js",
+    "build": "./scripts/build.sh",
+    "build:publish": "./scripts/publish.sh",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -29,34 +29,35 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.js",
+      "types": "./lib/types/index.d.ts"
     },
-    "./dist/vite": {
-      "import": "./dist/vite/index.js",
-      "require": "./dist/vite/index.cjs",
-      "default": "./dist/vite/index.cjs",
-      "types": "./dist/vite/VitePlugin/index.d.ts"
+    "./vite": {
+      "import": "./vite/index.js",
+      "require": "./vite/index.cjs",
+      "default": "./vite/index.cjs",
+      "types": "./vite/types/index.d.ts"
     },
     "./package.json": "./package.json"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.7",
-    "vue": "^3",
     "@jitl/ts-simple-type": "^2.0.0-next.3",
     "fs-jetpack": "^5.1.0",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "vue": "^3"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
     "@rollup/plugin-typescript": "^10.0.1",
+    "@vitejs/plugin-vue": "^4.0.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
+    "rimraf": "^3.0.2",
     "tailwindcss": "^3.2.4",
     "vite": "^4.0.0",
-    "vite-plugin-dts": "^1.7.1",
-    "vitest": "^0.26.0"
+    "vitest": "^0.26.0",
+    "vue-tsc": "^1.0.16"
   }
 }

@@ -2,7 +2,6 @@ import {type ResolvedConfig} from "vite";
 import {PluginConfig} from "./PluginConfig";
 import {TS} from "./TS";
 import ts from "typescript";
-import {generateInterfaceDeclaration} from "./Builders/Interfaces";
 import {generateDefinitions} from "./Builders/ModalInformation";
 
 export type DefinitionInfo = {

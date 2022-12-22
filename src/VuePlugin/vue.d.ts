@@ -1,5 +1,4 @@
 declare module "@vue/runtime-core" {
-
 	import {ModalManagerInstance} from './Systems/Modals/ModalManager';
 	import {EventsManagerInstance} from './Systems/EventBus/EventsManager';
 

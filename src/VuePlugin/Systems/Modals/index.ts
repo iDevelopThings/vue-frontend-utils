@@ -4,9 +4,11 @@ import type {ModalDefinitions, IModalManager, ModalVars, IModalRegistration} fro
 import {type ModalRegistration} from "./ModalRegistration";
 
 
+export * as ModalDrawer from "./ModalDrawer.vue";
+export * as ModalWrapper from "./ModalWrapper.vue";
 export {ModalManager, type IModalManagerState, ModalManagerInstance};
 export {ModalRegistration} from "./ModalRegistration";
-export type {ModalDefinitions, IModalManager, ModalVars, IModalRegistration, ModalProps, ModalData, ModalRegType} from "./ModalTypes";
+export type {ModalDefinitions, IModalManager, ModalVars, IModalRegistration, ModalProps} from "./ModalTypes";
 
 const ModalPlugin: Plugin = {
 	install(app, options) {

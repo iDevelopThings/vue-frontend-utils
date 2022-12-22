@@ -1,24 +1,18 @@
 import { defineConfig } from 'vite';
-import dts              from "vite-plugin-dts";
 import vue              from "@vitejs/plugin-vue";
-
 
 export default defineConfig({
 	plugins : [
-		dts({
-			tsConfigFilePath : "./tsconfig.lib.json",
-			insertTypesEntry : true,
-		}),
 		vue()
 	],
 	build   : {
-		outDir        : 'dist',
+		outDir        : 'dist/lib',
 		sourcemap     : true,
 		lib           : {
 			name     : 'VueFrontendUtils',
 			entry    : './src/VuePlugin/index.ts',
 			fileName : 'index',
-			formats  : ['es', 'cjs', 'umd', 'iife'],
+			formats  : ['es', 'cjs'],
 		},
 		rollupOptions : {
 			external : [
@@ -26,8 +20,12 @@ export default defineConfig({
 				"vue"
 			],
 			output   : {
-				globals : {},
+				globals : {
+					"@headlessui/vue" : "HeadlessUIVue",
+					"vue"             : "Vue"
+				},
 			},
 		},
+		emptyOutDir   : false,
 	},
 });

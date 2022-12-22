@@ -7,23 +7,13 @@ export default defineConfig({
 	plugins : [
 		VueFrontendUtils({
 			srcPathFromRoot : 'src',
+			tsConfigPathFromRoot : 'tsconfig.dev.json'
 		}),
 		vue()
 	],
 	build   : {
-		outDir        : 'dist',
-		sourcemap     : true,
-		lib           : {
-			name     : 'SurrealSchema',
-			entry    : './src/index.ts',
-			fileName : 'index',
-			formats  : ['es', 'cjs', 'umd', 'iife'],
-		},
-		rollupOptions : {
-			external : [],
-			output   : {
-				globals : {},
-			},
-		},
+		outDir      : 'dist',
+		sourcemap   : true,
+		emptyOutDir : false,
 	},
 });

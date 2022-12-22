@@ -3,7 +3,6 @@ import ts from "typescript";
 import {TS} from "../TS";
 import {toSimpleType, typeToString, SimpleType} from "@jitl/ts-simple-type";
 import {PluginConfig} from "../PluginConfig";
-import {RegisteredEvent} from "../../VuePlugin/Systems/EventBus";
 
 type GenerateResult = {
 	source?: string;
@@ -62,7 +61,9 @@ export function generateModalDefinitions(definitions: DefinitionInfo[], modalDef
 
 	const stub = `	
 declare module "${PluginConfig.isLocalDev ? "../VuePlugin/Systems/Modals" : "vue-frontend-utils"}" {
-	
+
+	import type {IModalRegistration} from "${PluginConfig.isLocalDev ? "../VuePlugin/Systems/Modals" : "vue-frontend-utils"}";
+
 	interface ModalDefinitions {
 ${defProperties}
 	}
@@ -70,11 +71,33 @@ ${defProperties}
 	interface ModalVars {
 ${defVars}
 	}	
-}
-	
-	
-export {};`;
 
+	interface IModalManager {
+		get<T extends keyof ModalDefinitions>(name: T): IModalRegistration<T extends keyof ModalDefinitions ? T : any>;
+
+		isRegistered<T extends keyof ModalDefinitions>(name: T): boolean;
+
+		unregister<T extends keyof ModalDefinitions>(name: T): void;
+
+		show<T extends keyof ModalDefinitions>(name: T, data?: T extends keyof ModalDefinitions ? ModalDefinitions[T] : any): void;
+
+		showOnly<T extends keyof ModalDefinitions>(name: T, data?: any): void;
+
+		opened<T extends keyof ModalDefinitions>(name: T, data?: any): void;
+
+		closed<T extends keyof ModalDefinitions>(name: T): void;
+
+		isOpen<T extends keyof ModalDefinitions>(name: T): boolean;
+
+		closeAllExcept<T extends keyof ModalDefinitions>(name: T): void;
+
+		getData<T extends keyof ModalDefinitions>(name: T): T extends keyof ModalDefinitions ? ModalDefinitions[T] : any | any;
+	}
+
+}
+
+export {};
+`;
 
 	return {
 		source   : stub,
