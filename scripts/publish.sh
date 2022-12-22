@@ -7,5 +7,6 @@ echo "Running build script..."
 ./scripts/build.sh
 
 echo "Publishing..."
+
 npm version patch
-npm publish
+cp ./package.json ./dist/package.json
