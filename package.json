@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "VUE_FRONTEND_UTILS_DEV=true vite --config ./vite.dev.config.js",
     "build": "./scripts/build.sh",
-    "build:publish": "./scripts/publish.sh && npm publish",
+    "build:publish": "./scripts/publish.sh && cd dist && npm publish",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
