@@ -24,9 +24,6 @@
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
       "import": "./lib/index.js",
