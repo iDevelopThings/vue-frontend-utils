@@ -8,9 +8,9 @@ echo "Running build script..."
 
 #if [ -z "$(git status --porcelain)" ]; then
 #else
-  npm version patch -m "%s"
   git add .
   git commit -m "Publishing new version"
+  npm version patch -m "%s"
   git push
 #fi
 
