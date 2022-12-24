@@ -37,6 +37,14 @@ export class ModalRegistration<T = any> implements IModalRegistration<T> {
 		this._onOpenEvent.invoke(data, this);
 	}
 
+	toggle(data?:any) : void {
+		if (this.isOpen()) {
+			this.hide();
+		} else {
+			this.show(data);
+		}
+	}
+
 	hide(): void {
 		this._isOpen = false;
 		ModalManager.closed(this.trigger);

@@ -18,6 +18,8 @@ export interface ModalProps<T = any> {
 export interface IModalRegistration<T = any> {
 	show(data?: T extends keyof ModalDefinitions ? ModalDefinitions[T] : any): void;
 
+	toggle(data?: T extends keyof ModalDefinitions ? ModalDefinitions[T] : any): void;
+
 	hide(): void;
 
 	isOpen(): boolean;
