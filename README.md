@@ -158,6 +158,35 @@ myModal.whenClosed(() => {
 });
 ```
 
+### useAsyncHandler
+
+Fully type safe handler, which stores it's current state, handles timeouts/cancellation and much more. 
+
+```typescript
+async function getUserFromApi(id: string) {
+	const req = await fetch("...");
+	return await req.json();
+}
+
+const getUser = useAsyncHandler(getUserFromApi);
+
+getUser.start("user id"); // Start the handler
+getUser.stop(); // Cancels the active promise if running
+
+getUser.isProcessing(); // true/false
+
+getUser.hasResult(); // true when your function completes and returns a value(non error)
+getUser.hasError(); // true when your function returns an error/times out or you call .stop()
+getUser.wasCancelled(); // true when you call .stop() or timed out
+getUser.wasTimeout(); // true when you use .withTimeout(x) and it hits the deadline
+
+getUser.result(); // The return value of your function(non error)
+getUser.error(); // The error(if any)
+
+getUser.withTimeout(200); // Set a deadline in ms
+
+```
+
 ## License
 
 `vue-frontend-utils` is open-source software licensed under the MIT license.

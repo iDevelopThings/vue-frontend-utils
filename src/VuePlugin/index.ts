@@ -5,6 +5,7 @@ import SpinnerButton from "./Components/SpinnerButton.vue";
 
 export * from "./Systems/Modals";
 export * from "./Systems/EventBus";
+export * from "./Systems/HandlerWrapper";
 
 export {default as VueFrontendUtils} from "./Plugin";
 export {Spinner, SpinnerButton};
