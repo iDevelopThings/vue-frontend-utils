@@ -24,15 +24,15 @@ export interface IAsyncHandler<Result, Args extends unknown[]> extends IBaseHand
 
 export class AsyncHandler<Result, Args extends unknown[]> extends BaseHandler<Result, Args> implements IAsyncHandler<Result, Args> {
 
-	private currentPromise: IPromisified<Result>;
+	protected currentPromise: IPromisified<Result>;
 
-	private _timeoutMs: number;
-	private _timeoutHandle: any;
+	protected _timeoutMs: number;
+	protected _timeoutHandle: any;
 
 	protected _wasCancelled: Ref<boolean>;
 	protected _wasTimeout: Ref<boolean>;
 
-	constructor(cb: (...args: Args) => Result | Promise<Result>) {
+	constructor(cb: (...args: Args) => Promise<Result>) {
 		super(cb);
 
 		this._wasCancelled = ref<boolean>(false);
@@ -83,7 +83,7 @@ export class AsyncHandler<Result, Args extends unknown[]> extends BaseHandler<Re
 		this.currentPromise.reject(reason);
 	}
 
-	public async run(...args: Args): Promise<Result> {
+	protected async run(...args: Args): Promise<Result> {
 		try {
 			this.startHandler();
 

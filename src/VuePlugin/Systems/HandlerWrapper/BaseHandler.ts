@@ -26,13 +26,13 @@ export class BaseHandler<Result, Args extends unknown[]> implements IBaseHandler
 	protected _processing: Ref<boolean>;
 	protected _error: Ref<Error>;
 	protected _result: Ref<Result>;
-	protected _cb: Ref<(...args: Args) => Result | Promise<Result>>;
+	protected _cb: Ref<(...args: Args) => Promise<Result>>;
 
-	constructor(cb: (...args: Args) => Result | Promise<Result>) {
+	constructor(cb: (...args: Args) => Promise<Result>) {
 		this._processing = ref<boolean>(false);
 		this._error      = ref<Error>(null);
 		this._result     = ref<Result>(null) as Ref<Result>;
-		this._cb         = ref<(...args: Args) => Result | Promise<Result>>(cb);
+		this._cb         = ref<(...args: Args) => Promise<Result>>(cb);
 	}
 
 	protected setProcessing(value: boolean) {
@@ -40,6 +40,10 @@ export class BaseHandler<Result, Args extends unknown[]> implements IBaseHandler
 	}
 
 	protected setError(value: Error | string) {
+		if (value === null) {
+			this._error.value = null;
+			return;
+		}
 		this._error.value = value instanceof Error ? value : new Error(value);
 	}
 
@@ -79,7 +83,7 @@ export class BaseHandler<Result, Args extends unknown[]> implements IBaseHandler
 	}
 
 
-	public async run(...args: Args): Promise<Result> {
+	protected async run(...args: Args): Promise<Result> {
 		try {
 			this.startHandler();
 			this.setResult(await this._cb.value(...args));
