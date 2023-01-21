@@ -30,6 +30,7 @@ import {ref, shallowRef} from "vue";
 import Modals from "./Modals/Modals.vue";
 import Events from "./Events.vue";
 import {type Component} from "@vue/runtime-core";
+import Copyable from "./Copyable.vue";
 
 type Tab = {
 	title: string;
@@ -44,6 +45,10 @@ const tabs = shallowRef<Tab[]>([
 	{
 		title     : "Events",
 		component : Events
+	},
+	{
+		title     : "Copyable",
+		component : Copyable
 	},
 ]);
 
