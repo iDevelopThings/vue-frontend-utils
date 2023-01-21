@@ -44,7 +44,11 @@ export function useTime(): dayjs.Dayjs {
 	return currentDayJsTime.value;
 }
 
-export function useDiff(date: Date | dayjs.Dayjs, vueComputed = true): string {
+export function useDiff(date: string | Date | dayjs.Dayjs, vueComputed = true): string {
+	if (typeof date === "string") {
+		date = dayjs(date);
+	}
+
 	if (vueComputed) {
 		return computed(() => currentDayJsTime.value.to(date)).value;
 	}

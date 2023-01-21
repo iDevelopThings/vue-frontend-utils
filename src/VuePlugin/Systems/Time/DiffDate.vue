@@ -11,7 +11,7 @@ import {useTime} from "./index";
 
 
 const props = defineProps<{
-	date: string,
+	date: string | Date | dayjs.Dayjs,
 }>();
 
 const date = useTime();

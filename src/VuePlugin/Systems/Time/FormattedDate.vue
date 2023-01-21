@@ -14,7 +14,7 @@ import {useTime, now} from "./index";
 
 
 const props = withDefaults(defineProps<{
-	date: string,
+	date: string | Date | dayjs.Dayjs,
 	format?: string,
 	noDiff?: boolean,
 }>(), {
