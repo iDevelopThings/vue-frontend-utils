@@ -1,11 +1,18 @@
 <template>
 	<div class="flex flex-row relative">
 		<TransitionGroup mode="out-in">
-			<slot key="initial" v-if="!copyable.isCopied()" name="initial" :copy="copyable.copy">
-				<button ref="btnInitial" @click="copyable.copy()" class="absolute">
-					Copy
-				</button>
-			</slot>
+			<template v-if="$slots.initial">
+				<slot key="initial" v-if="!copyable.isCopied()" name="initial" :copy="copyable.copy">
+					{{ $slots.initial() }}
+				</slot>
+			</template>
+			<template v-else>
+				<slot key="initial" v-if="!copyable.isCopied()" name="initial" :copy="copyable.copy">
+					<button ref="btnInitial" @click="copyable.copy()" class="absolute">
+						Copy
+					</button>
+				</slot>
+			</template>
 			<slot key="copied" v-if="copyable.isCopied()" name="copied" :reset="copyable.reset">
 				<button ref="btnCopied" disabled class="absolute">
 					Copied
@@ -18,6 +25,9 @@
 <script setup lang="ts">
 import {CopyableInstance, UseCopyableOptions, useCopyable} from "./index";
 import {ref} from "vue";
+import {useCurrentElement} from "@vueuse/core";
+
+const root = useCurrentElement();
 
 const props = withDefaults(defineProps<{
 	copyableInstance?: CopyableInstance,
@@ -76,7 +86,6 @@ const copyable = props.copyableInstance
 			return value;
 		},
 	});
-
 
 </script>
 

@@ -11,7 +11,29 @@
 				{{ copyableTwo.isCopied() === false ? 'Copy' : 'Copied' }}
 			</button>
 
-			<CopyableSection content="yayeet"/>
+			<CopyableSection content="yayeet" />
+
+			<CopyableSection content="yayeet">
+				<template #initial v-slot="slotProps">
+					<a
+						href="javascript:;"
+						@click="slotProps.copy()"
+						ref="btnInitial"
+						class="px-3 py-2 transition flex flex-row items-center"
+					>
+						Copy custom
+					</a>
+				</template>
+				<template #copied v-slot="slotProps">
+					<a
+						href="javascript:;"
+						class="px-3 py-2 transition flex flex-row items-center"
+					>
+						Copied
+					</a>
+				</template>
+			</CopyableSection>
+
 
 		</div>
 	</div>
